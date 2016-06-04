@@ -49,11 +49,17 @@ function tableHeaderPositionUpdate(){
 
         // Set the relative position based on the distance
         if (tableTop < 0 && tableBottom > 0){
-            tableHeader.style.position = 'relative';
             tableHeader.style['z-index'] = zindex;
-            tableHeader.style.top = -tableTop + 'px';
+            tableHeader.style.position = 'relative';
+
+            if (typeof tableHeader.style.transform === 'undefined') {
+                tableHeader.style.top = -tableTop + 'px';
+            } else {
+                tableHeader.style.transform = 'translateY(' + -tableTop + 'px)';
+            }
         } else {
             tableHeader.style.position = 'static';
+            tableHeader.style.transform = 'none';
         }
     }
 }
