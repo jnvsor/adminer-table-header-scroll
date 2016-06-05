@@ -66,8 +66,6 @@ function tableHeaderPositionUpdate(){
 
 if (window.addEventListener) {
     window.addEventListener('scroll', tableHeaderPositionUpdate);
-} else {
-    window.attachEvent('onscroll', tableHeaderPositionUpdate);
 }
 </script>
 
