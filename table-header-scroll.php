@@ -24,7 +24,7 @@ class AdminerTableHeaderScroll
     {
         ?>
 
-<script>
+<script<?php echo nonce(); ?>>
 function tableHeaderPositionUpdate(){
     // If your theme has a fixed position header, change these for compatibility
     var offset = -1;
