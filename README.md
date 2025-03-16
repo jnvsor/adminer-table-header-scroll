@@ -1,8 +1,10 @@
 # Adminer table header scroll
 
-An adminer plugin that makes the table header scroll with the viewport
+An adminer plugin that makes the table header scroll with the viewport. Nowadays this should be part of your theme but otherwise this plugin will do it for you.
 
 ## Settings
-You can change the offset and zindex values if needed for your theme.
-For example, the default theme needs the default offset of -1px, while
-the Haekel theme needs 32 due to the fixed position header.
+You can change the offset if needed for your theme. For example, the Haekel theme needs `32px` due to the fixed position header.
+
+```php
+new AdminerTableHeaderScroll('32px')
+```

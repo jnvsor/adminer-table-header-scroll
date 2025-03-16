@@ -20,56 +20,36 @@
  */
 class AdminerTableHeaderScroll
 {
+    private $offset;
+
+    public function __construct($offset = '0')
+    {
+        $this->setOffset($offset);
+    }
+
+    public function setOffset($offset)
+    {
+        if (!preg_match('/^[^<>{};:]+$/', $offset)) {
+            throw new InvalidArgumentException('AdminerTableHeaderScroll offset must be CSS length');
+        }
+
+        $this->offset = $offset;
+    }
+
+    public function getOffset()
+    {
+        return $this->offset;
+    }
+
     public function head()
     {
         ?>
-
-<script<?php echo nonce(); ?>>
-function tableHeaderPositionUpdate(){
-    // If your theme has a fixed position header, change these for compatibility
-    var offset = -1;
-    var zindex = 10000;
-
-    // Find tables in the content
-    var tables = document.getElementById('content').getElementsByTagName('table');
-    for (var i = 0; i < tables.length; i++) {
-        var table = tables[i];
-
-        // Find the table header
-        var tableHeader = table.getElementsByTagName('thead');
-        if (tableHeader.length) {
-            tableHeader = tableHeader[0];
-        } else {
-            continue;
+        <style>
+        #content table thead {
+            position: sticky;
+            top: <?= $this->offset ?>;
         }
-
-        // Calculate the distance from the top and bottom
-        var tableTop = table.getBoundingClientRect().top - offset;
-        var tableBottom = table.getBoundingClientRect().bottom - offset - tableHeader.offsetHeight;
-
-        // Set the relative position based on the distance
-        if (tableTop < 0 && tableBottom > 0){
-            tableHeader.style['z-index'] = zindex;
-            tableHeader.style.position = 'relative';
-
-            if (typeof tableHeader.style.transform === 'undefined') {
-                tableHeader.style.top = -tableTop + 'px';
-            } else {
-                tableHeader.style.transform = 'translateY(' + -tableTop + 'px)';
-            }
-        } else {
-            tableHeader.style.position = 'static';
-            tableHeader.style.transform = 'none';
-        }
-    }
-}
-
-if (window.addEventListener) {
-    window.addEventListener('scroll', tableHeaderPositionUpdate);
-}
-</script>
-
-    <?php
-        return true;
+        </style>
+        <?php
     }
 }
